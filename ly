@@ -25,7 +25,7 @@ Page({
     wx.openBluetoothAdapter({
       success: (res) => {
         that.setData({ getBlue: true, devices: [], })
-        that.startBluetoothDevicesDiscovery()
+        this.startBluetoothDevicesDiscovery()
       },
       fail: (res) => {
         if (res.errCode === 10001) {
@@ -43,7 +43,7 @@ Page({
     wx.startBluetoothDevicesDiscovery({
       allowDuplicatesKey: false,//是否允许重复上报同一设备
       success: (res) => {
-        that.onBluetoothDeviceFound()
+        this.onBluetoothDeviceFound()
       },
     })
   },
@@ -71,9 +71,9 @@ Page({
     wx.getBluetoothAdapterState({
       success: (res) => {
         if (res.discovering) {
-          that.onBluetoothDeviceFound()
+          this.onBluetoothDeviceFound()
         } else if (res.available) {
-          that.startBluetoothDevicesDiscovery()
+          this.startBluetoothDevicesDiscovery()
         }
       }
     })
@@ -95,7 +95,7 @@ Page({
       success: (res) => {
         // if(that.data.deviceId!=''){that.closeBLEConnection();}
         localName = ds.name;
-        that.getBLEDeviceServices(deviceId)
+        this.getBLEDeviceServices(deviceId)
 
       },
       fail:(res)=>{
@@ -104,7 +104,7 @@ Page({
         that.showToast(e)
       }
     })
-    that.stopBluetoothDevicesDiscovery()
+    this.stopBluetoothDevicesDiscovery()
     that.setData({ getBlue: false })
   },
   //获取蓝牙设备所有服务
@@ -114,7 +114,7 @@ Page({
       success: (res) => {
         for (let i = 0; i < res.services.length; i++) {
           if (res.services[i].isPrimary) {
-            that.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
+            this.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
             return
           }
         }
