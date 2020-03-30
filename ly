@@ -6,7 +6,6 @@ function inArray(arr, key, val) {
   }
   return -1;
 }
-var that=this;
 var localName;
 Page({
 
@@ -24,7 +23,7 @@ Page({
     // 检测蓝牙是否打开
     wx.openBluetoothAdapter({
       success: (res) => {
-        that.setData({ getBlue: true, devices: [], })
+        this.setData({ getBlue: true, devices: [], })
         this.startBluetoothDevicesDiscovery()
       },
       fail: (res) => {
